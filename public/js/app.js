@@ -1,22 +1,22 @@
-// 全局变量
+// Biến toàn cục
 let messages = [];
 let currentModel = 'gpt-5.3-codex';
 
-// 页面加载时初始化
+// Khởi tạo khi trang tải xong
 document.addEventListener('DOMContentLoaded', async () => {
   await loadStatus();
   await loadModels();
 });
 
-// 加载服务状态
+// Tải trạng thái dịch vụ
 async function loadStatus() {
   try {
     const response = await fetch('/health');
     const data = await response.json();
     
     if (data.status === 'ok') {
-      document.getElementById('serviceStatus').textContent = '运行中';
-      document.getElementById('accountEmail').textContent = data.token.email || data.token.account_id || '未知';
+      document.getElementById('serviceStatus').textContent = 'Đang chạy';
+      document.getElementById('accountEmail').textContent = data.token.email || data.token.account_id || 'Không xác định';
       
       if (data.token.expired) {
         const expireDate = new Date(data.token.expired);
@@ -24,14 +24,14 @@ async function loadStatus() {
       }
     }
   } catch (error) {
-    console.error('加载状态失败:', error);
-    document.getElementById('serviceStatus').textContent = '离线';
+    console.error('Tải trạng thái thất bại:', error);
+    document.getElementById('serviceStatus').textContent = 'Ngoại tuyến';
     document.getElementById('serviceStatus').classList.remove('text-primary');
     document.getElementById('serviceStatus').classList.add('text-error');
   }
 }
 
-// 加载模型列表
+// Tải danh sách mô hình
 async function loadModels() {
   try {
     const response = await fetch('/v1/models');
@@ -56,24 +56,24 @@ async function loadModels() {
       currentModel = e.target.value;
     });
   } catch (error) {
-    console.error('加载模型失败:', error);
+    console.error('Tải danh sách mô hình thất bại:', error);
   }
 }
 
-// 发送消息
+// Gửi tin nhắn
 async function sendMessage() {
   const input = document.getElementById('messageInput');
   const message = input.value.trim();
   
   if (!message) return;
   
-  // 添加用户消息
+  // Thêm tin nhắn của người dùng
   messages.push({ role: 'user', content: message });
   appendMessage('user', message);
   input.value = '';
   
-  // 显示加载状态
-  const loadingId = appendMessage('assistant', '思考中...', true);
+  // Hiển thị trạng thái tải
+  const loadingId = appendMessage('assistant', 'Đang suy nghĩ...', true);
   
   try {
     const response = await fetch('/v1/chat/completions', {
@@ -92,10 +92,10 @@ async function sendMessage() {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     
-    // 移除加载消息
+    // Loại bỏ tin nhắn tải
     document.getElementById(loadingId).remove();
     
-    // 处理流式响应
+    // Xử lý phản hồi streaming
     const reader = response.body.getReader();
     const decoder = new TextDecoder();
     let assistantMessage = '';
@@ -127,29 +127,29 @@ async function sendMessage() {
               }
             }
           } catch (e) {
-            // 忽略解析错误
+            // Bỏ qua lỗi phân tích
           }
         }
       }
     }
     
-    // 保存助手消息
+    // Lưu tin nhắn trợ lý
     if (assistantMessage) {
       messages.push({ role: 'assistant', content: assistantMessage });
     }
     
   } catch (error) {
-    console.error('发送消息失败:', error);
+    console.error('Gửi tin nhắn thất bại:', error);
     document.getElementById(loadingId).remove();
-    appendMessage('system', '错误: ' + error.message);
+    appendMessage('system', 'Lỗi: ' + error.message);
   }
 }
 
-// 添加消息到聊天区域
+// Thêm tin nhắn vào khu vực chat
 function appendMessage(role, content, isLoading = false) {
   const container = document.getElementById('chatMessages');
   
-  // 首次添加消息时清除欢迎文本
+  // Xóa văn bản chào mừng khi thêm tin nhắn đầu tiên
   if (container.children.length === 1 && container.children[0].classList.contains('text-center')) {
     container.innerHTML = '';
   }
@@ -187,7 +187,7 @@ function appendMessage(role, content, isLoading = false) {
   return messageId;
 }
 
-// 更新消息内容
+// Cập nhật nội dung tin nhắn
 function updateMessage(messageId, content) {
   const messageDiv = document.getElementById(messageId);
   if (messageDiv) {
@@ -199,40 +199,40 @@ function updateMessage(messageId, content) {
   container.scrollTop = container.scrollHeight;
 }
 
-// 清空聊天
+// Xóa trò chuyện
 function clearChat() {
   messages = [];
   const container = document.getElementById('chatMessages');
-  container.innerHTML = '<div class="text-center text-base-content/50 py-8">开始对话吧！</div>';
+  container.innerHTML = '<div class="text-center text-base-content/50 py-8">Bắt đầu trò chuyện!</div>';
 }
 
-// HTML 转义
+// Escape HTML
 function escapeHtml(text) {
   const div = document.createElement('div');
   div.textContent = text;
   return div.innerHTML;
 }
 
-// 显示设置
+// Hiển thị cài đặt
 function showSettings() {
-  alert('设置功能开发中...');
+  alert('Chức năng cài đặt đang phát triển...');
 }
 
-// 显示状态
+// Hiển thị trạng thái
 async function showStatus() {
   await loadStatus();
-  alert('状态已刷新！');
+  alert('Trạng thái đã được làm mới!');
 }
 
-// 显示模型列表
+// Hiển thị danh sách mô hình
 async function showModels() {
   try {
     const response = await fetch('/v1/models');
     const data = await response.json();
     
     const modelList = data.data.map(m => m.id).join('\n');
-    alert('可用模型:\n\n' + modelList);
+    alert('Các mô hình khả dụng:\n\n' + modelList);
   } catch (error) {
-    alert('获取模型列表失败: ' + error.message);
+    alert('Lấy danh sách mô hình thất bại: ' + error.message);
   }
 }
