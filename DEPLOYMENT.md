@@ -1,200 +1,190 @@
-# GPT2API Node - 部署文档
+# GPT2API Node - Tài liệu triển khai
 
-## 🎉 系统功能
+## 🎉 Chức năng hệ thống
 
-### 核心功能
-- ✅ OpenAI Codex 反向代理服务
-- ✅ 完整的 Web 管理后台
-- ✅ 多账号管理和批量操作
-- ✅ 自动 Token 刷新机制
-- ✅ 负载均衡（轮询/随机/最少使用）
-- ✅ API Key 管理和认证
-- ✅ 请求统计和数据分析
-- ✅ 实时活动记录
+### Chức năng chính
+- ✅ Dịch vụ proxy ngược OpenAI Codex
+- ✅ Giao diện quản trị Web đầy đủ
+- ✅ Quản lý nhiều tài khoản và thao tác hàng loạt
+- ✅ Cơ chế tự động làm mới Token
+- ✅ Cân bằng tải (round-robin / random / least-used)
+- ✅ Quản lý và xác thực API Key
+- ✅ Thống kê yêu cầu và phân tích dữ liệu
+- ✅ Ghi nhận hoạt động theo thời gian thực
 
-### 管理后台功能
+### Chức năng quản trị
 
-#### 1. 仪表盘
-- 系统概览和实时统计
-- API Keys 数量
-- Token 账号数量
-- 今日请求数和成功率
-- 最近活动记录（API请求、账号添加等）
+#### 1. Bảng điều khiển
+- Tổng quan hệ thống và thống kê thời gian thực
+- Số lượng API Keys
+- Số lượng tài khoản Token
+- Số yêu cầu hôm nay và tỷ lệ thành công
+- Ghi nhận hoạt động gần đây (API request, thêm tài khoản...)
 
-#### 2. API Keys 管理
-- 创建和管理 API Keys
-- 查看使用统计
-- 启用/禁用 API Key
-- 删除 API Key
+#### 2. Quản lý API Keys
+- Tạo và quản lý API Keys
+- Xem thống kê sử dụng
+- Kích hoạt / vô hiệu hóa API Key
+- Xóa API Key
 
-#### 3. 账号管理
-- **批量导入 Token**（支持 JSON 文件和多文件）
-- **批量删除账号**（支持多选）
-- 手动添加账号
-- 查看账号额度和使用情况
-- 刷新账号额度（单个/全部）
-- 负载均衡策略配置
-- 账号总数实时显示
+#### 3. Quản lý tài khoản
+- **Nhập Token hàng loạt** (hỗ trợ JSON và nhiều tệp)
+- **Xóa tài khoản hàng loạt** (hỗ trợ chọn nhiều)
+- Thêm tài khoản thủ công
+- Xem hạn mức và tình trạng sử dụng
+- Làm mới hạn mức tài khoản (từng cái hoặc tất cả)
+- Cấu hình chiến lược cân bằng tải
+- Hiển thị tổng số tài khoản theo thời gian thực
 
-#### 4. 数据分析
-- **请求量趋势图表**（基于真实数据）
-- 模型使用分布
-- 账号详细统计（带滚动条）
-- API 请求日志（带滚动条）
-- 支持时间范围筛选（24小时/7天/30天）
+#### 4. Phân tích dữ liệu
+- Biểu đồ xu hướng yêu cầu (dựa trên dữ liệu thực tế)
+- Phân bố sử dụng mô hình
+- Thống kê chi tiết tài khoản (có thanh cuộn)
+- Nhật ký yêu cầu API (có thanh cuộn)
+- Hỗ trợ lọc theo khoảng thời gian (24 giờ / 7 ngày / 30 ngày)
 
-#### 5. 系统设置
-- 修改管理员密码
-- 负载均衡策略设置
-- GitHub 项目链接
+#### 5. Cài đặt hệ thống
+- Thay đổi mật khẩu quản trị
+- Cấu hình chiến lược cân bằng tải
+- Liên kết dự án GitHub
 
-## 🚀 快速部署
+## 🚀 Triển khai nhanh
 
-### 1. 环境要求
-- Node.js 16+ 
-- npm 或 yarn
+### 1. Yêu cầu môi trường
+- Node.js 16+
+- npm hoặc yarn
 
-### 2. 安装步骤
+### 2. Cài đặt
 
 ```bash
-# 克隆项目
+# Clone dự án
 git clone https://github.com/lulistart/gpt2api-node.git
 cd gpt2api-node
 
-# 安装依赖
+# Cài đặt phụ thuộc
 npm install
 
-# 初始化数据库
+# Khởi tạo cơ sở dữ liệu
 npm run init-db
 
-# 启动服务
+# Khởi động dịch vụ
 npm start
 ```
 
-### 3. 访问管理后台
+### 3. Truy cập quản trị
 
-打开浏览器访问：`http://localhost:3000/admin`
+Mở trình duyệt: `http://localhost:3000/admin`
 
-默认管理员账户：
-- 用户名：`admin`
-- 密码：`admin123`
+Tài khoản quản trị mặc định:
+- Tên đăng nhập: `admin`
+- Mật khẩu: `admin123`
 
-**重要**：首次登录后请立即修改密码！
+**Quan trọng**: đổi mật khẩu ngay lần đầu đăng nhập!
 
-## 📁 项目结构
+## 📁 Cấu trúc dự án
 
 ```
 gpt2api-node/
 ├── src/
 │   ├── config/
-│   │   └── database.js          # 数据库配置和初始化
+│   │   └── database.js          # Cấu hình và khởi tạo database
 │   ├── middleware/
-│   │   └── auth.js              # 认证中间件
+│   │   └── auth.js              # Middleware xác thực
 │   ├── models/
-│   │   └── index.js             # 数据模型（User、ApiKey、Token、ApiLog）
+│   │   └── index.js             # Mô hình dữ liệu (User, ApiKey, Token, ApiLog)
 │   ├── routes/
-│   │   ├── auth.js              # 认证路由（登录、登出、修改密码）
-│   │   ├── apiKeys.js           # API Keys 管理路由
-│   │   ├── tokens.js            # Tokens 管理路由（含批量删除）
-│   │   ├── stats.js             # 统计路由（含最近活动）
-│   │   └── settings.js          # 设置路由
+│   │   ├── auth.js              # Route xác thực (đăng nhập, đăng xuất, đổi mật khẩu)
+│   │   ├── apiKeys.js           # Route quản lý API Keys
+│   │   ├── tokens.js            # Route quản lý Tokens (bao gồm xóa hàng loạt)
+│   │   ├── stats.js             # Route thống kê (bao gồm hoạt động gần đây)
+│   │   └── settings.js          # Route cài đặt
 │   ├── scripts/
-│   │   └── initDatabase.js      # 数据库初始化脚本
-│   ├── index.js                 # 主入口文件
-│   ├── tokenManager.js          # Token 管理模块
-│   └── proxyHandler.js          # 代理处理模块
+│   │   └── initDatabase.js      # Script khởi tạo database
+│   ├── index.js                 # Tệp khởi động chính
+│   ├── tokenManager.js          # Module quản lý Token
+│   └── proxyHandler.js          # Module xử lý proxy
 ├── public/
 │   └── admin/
-│       ├── login.html           # 登录页面
-│       ├── index.html           # 管理后台主页
+│       ├── login.html           # Trang đăng nhập
+│       ├── index.html           # Trang quản trị
 │       └── js/
-│           └── admin.js         # 管理后台脚本
+│           └── admin.js         # Script quản trị
 ├── database/
-│   └── app.db                   # SQLite 数据库
-├── models.json                  # 模型配置
+│   └── app.db                   # SQLite database
+├── models.json
 ├── package.json
-├── README.md
-└── DEPLOYMENT.md
+└── README.md
 ```
 
-## 🔧 配置说明
+## 🔧 Cấu hình
 
-### 环境变量
+### Biến môi trường
 
-创建 `.env` 文件：
+Tạo file `.env`:
 
 ```env
-# 服务端口
 PORT=3000
-
-# Session 密钥（生产环境必须修改）
 SESSION_SECRET=your-random-secret-key-change-in-production
-
-# 负载均衡策略：round-robin（轮询）、random（随机）、least-used（最少使用）
 LOAD_BALANCE_STRATEGY=round-robin
-
-# 模型配置文件
 MODELS_FILE=./models.json
-
-# 数据库路径
 DATABASE_PATH=./database/app.db
 ```
 
-### 负载均衡策略
+### Chiến lược cân bằng tải
 
-支持三种策略：
+Hỗ trợ ba chiến lược:
 
-1. **round-robin（轮询）**：按顺序依次使用每个账号，默认策略
-2. **random（随机）**：随机选择一个可用账号
-3. **least-used（最少使用）**：选择请求次数最少的账号
+1. **round-robin**: luân phiên sử dụng từng tài khoản
+2. **random**: chọn ngẫu nhiên tài khoản khả dụng
+3. **least-used**: chọn tài khoản có ít yêu cầu nhất
 
-可通过环境变量或管理后台配置。
+Có thể cấu hình bằng biến môi trường hoặc trong giao diện quản trị.
 
-## 📊 数据库结构
+## 📊 Cấu trúc cơ sở dữ liệu
 
-### users 表
-- 管理员账户信息
-- 字段：id, username, password_hash, created_at
+### Bảng users
+- Lưu thông tin tài khoản quản trị
+- Các trường: id, username, password_hash, created_at
 
-### api_keys 表
-- API 密钥管理
-- 字段：id, name, key, is_active, usage_count, last_used_at, created_at
+### Bảng api_keys
+- Quản lý API Key
+- Các trường: id, name, key, is_active, usage_count, last_used_at, created_at
 
-### tokens 表
-- OpenAI Token 账户
-- 字段：id, name, email, account_id, access_token, refresh_token, id_token, expired_at, last_refresh_at, is_active, total_requests, success_requests, failed_requests, quota_total, quota_used, quota_remaining, created_at
+### Bảng tokens
+- Lưu thông tin tài khoản OpenAI Token
+- Các trường: id, name, email, account_id, access_token, refresh_token, id_token, expired_at, last_refresh_at, is_active, total_requests, success_requests, failed_requests, quota_total, quota_used, quota_remaining, created_at
 
-### api_logs 表
-- API 请求日志
-- 字段：id, api_key_id, token_id, model, endpoint, status_code, error_message, created_at
+### Bảng api_logs
+- Nhật ký yêu cầu API
+- Các trường: id, api_key_id, token_id, model, endpoint, status_code, error_message, created_at
 
-## 🔐 安全建议
+## 🔐 Gợi ý bảo mật
 
-### 生产环境配置
+### Cài đặt cho môi trường sản xuất
 
-1. **修改默认密码**
-   - 首次登录后立即修改管理员密码
-   - 使用强密码（至少8位，包含大小写字母、数字、特殊字符）
+1. **Đổi mật khẩu mặc định**
+   - Đổi ngay lần đầu đăng nhập
+   - Sử dụng mật khẩu mạnh (ít nhất 8 ký tự, chữ hoa chữ thường, số, ký tự đặc biệt)
 
-2. **设置环境变量**
+2. **Thiết lập biến môi trường**
    ```bash
    SESSION_SECRET=$(openssl rand -base64 32)
    ```
 
-3. **启用 HTTPS**
-   - 使用 Nginx 或 Caddy 作为反向代理
-   - 配置 SSL 证书
-   - 设置 `cookie.secure = true`
+3. **Kích hoạt HTTPS**
+   - Sử dụng Nginx hoặc Caddy làm reverse proxy
+   - Cấu hình chứng chỉ SSL
+   - Thiết lập `cookie.secure = true`
 
-4. **防火墙配置**
-   - 只开放必要的端口
-   - 限制管理后台访问 IP
+4. **Cấu hình tường lửa**
+   - Chỉ mở cổng cần thiết
+   - Giới hạn truy cập quản trị theo IP nếu cần
 
-5. **定期备份**
-   - 备份 `database/app.db` 数据库文件
-   - 备份环境变量配置
+5. **Sao lưu định kỳ**
+   - Sao lưu file `database/app.db`
+   - Sao lưu cấu hình biến môi trường
 
-### Nginx 反向代理示例
+### Ví dụ Nginx
 
 ```nginx
 server {
@@ -224,21 +214,21 @@ server {
 }
 ```
 
-## 🎯 使用指南
+## 🎯 Hướng dẫn sử dụng
 
-### 1. 创建 API Key
+### 1. Tạo API Key
 
-1. 登录管理后台
-2. 进入 **API Keys** 页面
-3. 点击 **创建 API Key**
-4. 输入名称（可选）
-5. 复制生成的 API Key（只显示一次）
+1. Đăng nhập quản trị
+2. Vào trang **API Keys**
+3. Nhấn **Tạo API Key**
+4. Nhập tên (không bắt buộc)
+5. Sao chép API Key vừa tạo
 
-### 2. 导入 Token 账号
+### 2. Nhập tài khoản Token
 
-#### 方式一：批量导入 JSON
+#### Nhập hàng loạt JSON
 
-1. 准备 JSON 文件：
+1. Chuẩn bị tệp JSON:
 ```json
 [
   {
@@ -247,32 +237,31 @@ server {
     "id_token": "your_id_token",
     "account_id": "account_id",
     "email": "email@example.com",
-    "name": "账号名称"
+    "name": "Tên tài khoản"
   }
 ]
 ```
 
-2. 进入 **账号管理** 页面
-3. 点击 **导入 JSON**
-4. 选择文件或粘贴 JSON 内容
-5. 点击 **预览导入**
-6. 确认后点击 **确认导入**
+2. Vào trang **Quản lý tài khoản**
+3. Nhấn **Nhập JSON**
+4. Chọn tệp hoặc dán nội dung JSON
+5. Xem trước và xác nhận
 
-#### 方式二：手动添加
+#### Thêm thủ công
 
-1. 进入 **账号管理** 页面
-2. 点击 **手动添加**
-3. 填写 Access Token 和 Refresh Token
-4. 点击 **添加**
+1. Vào trang **Quản lý tài khoản**
+2. Nhấn **Thêm thủ công**
+3. Điền Access Token và Refresh Token
+4. Nhấn **Thêm**
 
-### 3. 批量删除账号
+### 3. Xóa tài khoản hàng loạt
 
-1. 进入 **账号管理** 页面
-2. 勾选要删除的账号
-3. 点击 **删除选中** 按钮
-4. 确认删除
+1. Vào trang **Quản lý tài khoản**
+2. Chọn tài khoản cần xóa
+3. Nhấn **Xóa đã chọn**
+4. Xác nhận
 
-### 4. 使用 API
+### 4. Sử dụng API
 
 ```bash
 curl http://localhost:3000/v1/chat/completions \
@@ -286,86 +275,83 @@ curl http://localhost:3000/v1/chat/completions \
   }'
 ```
 
-## 🐛 故障排除
+## 🐛 Khắc phục sự cố
 
-### 无法访问管理后台
+### Không truy cập được quản trị
 
-1. 检查服务是否启动：`npm start`
-2. 检查端口是否被占用：`netstat -ano | findstr :3000`
-3. 检查防火墙设置
+1. Kiểm tra dịch vụ đã chạy: `npm start`
+2. Kiểm tra cổng: `netstat -ano | findstr :3000`
+3. Kiểm tra tường lửa
 
-### 数据库初始化失败
+### Khởi tạo database thất bại
 
 ```bash
-# 删除旧数据库
 rm database/app.db
-
-# 重新初始化
 npm run init-db
 ```
 
-### Token 刷新失败
+### Token làm mới thất bại
 
-1. 检查网络连接
-2. 确认 refresh_token 是否有效
-3. 重新导入新的 token
+1. Kiểm tra mạng
+2. Xác nhận `refresh_token` còn hiệu lực
+3. Nhập lại token mới
 
-### API 请求失败
+### Yêu cầu API thất bại
 
-1. 检查 API Key 是否正确
-2. 确保有可用的 Token 账号
-3. 查看管理后台的请求日志
-4. 检查账号是否被禁用
+1. Kiểm tra API Key
+2. Đảm bảo có tài khoản Token khả dụng
+3. Xem log yêu cầu
+4. Kiểm tra tài khoản có bị vô hiệu hóa
 
-### 请求趋势图表显示异常
+### Biểu đồ xu hướng hiển thị sai
 
-- 图表数据基于 `api_logs` 表的真实请求记录
-- 如果没有请求记录，图表会显示为空
-- 发送几次 API 请求后刷新页面查看
+- Dữ liệu biểu đồ dựa trên bảng `api_logs`
+- Nếu không có dữ liệu, biểu đồ có thể trống
+- Gửi vài yêu cầu API rồi refresh trang
 
-## 📝 维护建议
+## 📝 Bảo trì
 
-1. **定期备份数据库**
+1. **Sao lưu database định kỳ**
    ```bash
-   cp database/app.db database/app.db.backup.$(date +%Y%m%d)
+   cp database/app.db database.app.db.backup.$(date +%Y%m%d)
    ```
 
-2. **监控日志**
-   - 查看终端输出
-   - 检查请求日志
+2. **Theo dõi log**
+   - Xem đầu ra terminal
+   - Kiểm tra nhật ký yêu cầu
 
-3. **更新依赖**
+3. **Cập nhật phụ thuộc**
    ```bash
    npm update
    ```
 
-4. **清理旧日志**
-   - 定期清理 `api_logs` 表中的旧记录
+4. **Dọn dẹp log cũ**
+   - Xóa các bản ghi cũ trong bảng `api_logs`
 
-## 🔄 更新日志
+## 🔄 Cập nhật
 
 ### v2.0.0 (2026-02-17)
-- ✅ 添加批量删除账号功能
-- ✅ 添加仪表盘最近活动记录
-- ✅ 添加 GitHub 项目链接
-- ✅ 移除前台页面，根路径重定向到管理后台
-- ✅ 修复模型列表（删除不存在的 gpt-5.3-codex-spark）
-- ✅ 优化终端日志输出
-- ✅ 账号管理页面显示账号总数
-- ✅ 账号详细统计和请求日志添加滚动条
-- ✅ 修复请求趋势图表，使用真实数据
+- ✅ Thêm chức năng xóa tài khoản hàng loạt
+- ✅ Thêm ghi nhận hoạt động gần đây trên bảng điều khiển
+- ✅ Thêm liên kết GitHub
+- ✅ Chuyển hướng root về màn hình quản trị
+- ✅ Sửa danh sách mô hình (loại gpt-5.3-codex-spark không tồn tại)
+- ✅ Tối ưu đầu ra log terminal
+- ✅ Hiển thị tổng số tài khoản trên trang quản lý
+- ✅ Thêm thanh cuộn cho thống kê chi tiết và nhật ký yêu cầu
+- ✅ Sửa biểu đồ xu hướng yêu cầu để sử dụng dữ liệu thực tế
 
 ### v1.0.0
-- ✅ 基础管理系统
-- ✅ API Keys 管理
-- ✅ Tokens 管理
-- ✅ 数据统计
+- ✅ Hệ thống quản trị cơ bản
+- ✅ Quản lý API Keys
+- ✅ Quản lý Tokens
+- ✅ Thống kê dữ liệu
 
-## 📞 支持
+## 📞 Hỗ trợ
 
 - GitHub: https://github.com/lulistart/gpt2api-node
 - Issues: https://github.com/lulistart/gpt2api-node/issues
 
-## 📄 许可证
+## 📄 Giấy phép
 
 MIT License
