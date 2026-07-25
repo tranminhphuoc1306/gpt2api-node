@@ -1,7 +1,7 @@
-// 全局变量
+// Biến toàn cục
 let currentPage = 'dashboard';
 
-// 页面加载时初始化
+// Khởi tạo khi trang tải xong
 document.addEventListener('DOMContentLoaded', async () => {
   await checkAuth();
   await loadStats();
@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   await loadRecentActivity();
 });
 
-// 检查认证状态
+// Kiểm tra trạng thái xác thực
 async function checkAuth() {
   try {
     const response = await fetch('/admin/auth/check');
@@ -17,12 +17,12 @@ async function checkAuth() {
       window.location.href = '/admin/login.html';
     }
   } catch (error) {
-    console.error('认证检查失败:', error);
+    console.error('Kiểm tra xác thực thất bại:', error);
     window.location.href = '/admin/login.html';
   }
 }
 
-// 加载统计数据
+// Tải dữ liệu thống kê
 async function loadStats() {
   try {
     const response = await fetch('/admin/stats');
@@ -33,11 +33,11 @@ async function loadStats() {
     document.getElementById('todayRequests').textContent = data.todayRequests || 0;
     document.getElementById('successRate').textContent = (data.successRate || 100) + '%';
   } catch (error) {
-    console.error('加载统计数据失败:', error);
+    console.error('Tải dữ liệu thống kê thất bại:', error);
   }
 }
 
-// 加载最近活动记录
+// Tải hoạt động gần đây
 async function loadRecentActivity() {
   try {
     const response = await fetch('/admin/stats/recent-activity?limit=10');
@@ -46,7 +46,7 @@ async function loadRecentActivity() {
     const container = document.getElementById('recentActivity');
     
     if (activities.length === 0) {
-      container.innerHTML = '<div class="text-center py-8 text-gray-500"><i class="fas fa-info-circle mr-2"></i>暂无活动记录</div>';
+      container.innerHTML = '<div class="text-center py-8 text-gray-500"><i class="fas fa-info-circle mr-2"></i>Chưa có hoạt động</div>';
       return;
     }
     
@@ -70,31 +70,31 @@ async function loadRecentActivity() {
       `;
     }).join('');
   } catch (error) {
-    console.error('加载最近活动失败:', error);
+    console.error('Tải hoạt động gần đây thất bại:', error);
   }
 }
 
-// 计算时间差
+// Tính khoảng thời gian
 function getTimeAgo(timestamp) {
-  if (!timestamp) return '未知';
+  if (!timestamp) return 'Không xác định';
   
   const now = new Date();
   const time = new Date(timestamp);
-  const diff = Math.floor((now - time) / 1000); // 秒
+  const diff = Math.floor((now - time) / 1000); // giây
   
-  if (diff < 60) return '刚刚';
-  if (diff < 3600) return `${Math.floor(diff / 60)} 分钟前`;
-  if (diff < 86400) return `${Math.floor(diff / 3600)} 小时前`;
-  if (diff < 604800) return `${Math.floor(diff / 86400)} 天前`;
+  if (diff < 60) return 'Vừa xong';
+  if (diff < 3600) return `${Math.floor(diff / 60)}  phút trước`;
+  if (diff < 86400) return `${Math.floor(diff / 3600)}  giờ trước`;
+  if (diff < 604800) return `${Math.floor(diff / 86400)}  ngày trước`;
   return time.toLocaleDateString('zh-CN');
 }
 
-// 切换页面
+// Chuyển trang
 function switchPage(event, page) {
   event.preventDefault();
   currentPage = page;
   
-  // 更新导航样式
+  // Cập nhật kiểu điều hướng
   document.querySelectorAll('.nav-item').forEach(item => {
     item.classList.remove('active', 'text-white');
     item.classList.add('text-gray-700');
@@ -102,26 +102,26 @@ function switchPage(event, page) {
   event.currentTarget.classList.add('active');
   event.currentTarget.classList.remove('text-gray-700');
   
-  // 隐藏所有页面
+  // Ẩn tất cả trang
   document.getElementById('dashboardPage').classList.add('hidden');
   document.getElementById('apikeysPage').classList.add('hidden');
   document.getElementById('accountsPage').classList.add('hidden');
   document.getElementById('analyticsPage').classList.add('hidden');
   document.getElementById('settingsPage').classList.add('hidden');
   
-  // 更新页面标题
+  // Cập nhật tiêu đề trang
   const titles = {
-    dashboard: { title: '仪表盘', desc: '系统概览和实时数据' },
-    apikeys: { title: 'API Keys', desc: 'API 密钥管理' },
-    accounts: { title: '账号管理', desc: 'Tokens 账户管理' },
-    analytics: { title: '数据分析', desc: 'API 请求统计和分析' },
-    settings: { title: '系统设置', desc: '系统配置和偏好设置' }
+    dashboard: { title: 'Bảng điều khiển', desc: 'Tổng quan hệ thống và dữ liệu thời gian thực' },
+    apikeys: { title: 'API Keys', desc: 'Quản lý API Key' },
+    accounts: { title: 'Quản lý tài khoản', desc: 'Quản lý Tokens' },
+    analytics: { title: 'Phân tích dữ liệu', desc: 'Thống kê và phân tích API' },
+    settings: { title: 'Cài đặt hệ thống', desc: 'Cấu hình hệ thống và tùy chọn' }
   };
   
   document.getElementById('pageTitle').textContent = titles[page].title;
   document.getElementById('pageDesc').textContent = titles[page].desc;
   
-  // 显示对应页面
+  // Hiển thị trang tương ứng
   if (page === 'dashboard') {
     document.getElementById('dashboardPage').classList.remove('hidden');
   } else if (page === 'apikeys') {
@@ -139,10 +139,10 @@ function switchPage(event, page) {
   }
 }
 
-// 切换账号管理标签
-// 已移除，不再需要
+// Chuyển tab quản lý tài khoản
+// Đã loại bỏ, không cần nữa
 
-// ==================== API Keys 管理 ====================
+// ==================== Quản lý API Keys ====================
 
 async function loadApiKeys() {
   try {
@@ -152,7 +152,7 @@ async function loadApiKeys() {
     const tbody = document.getElementById('apiKeysTable');
     
     if (data.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="6" class="text-center py-8 text-gray-500">暂无 API Key</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="6" class="text-center py-8 text-gray-500">Chưa có API Key</td></tr>';
       return;
     }
     
@@ -169,21 +169,21 @@ async function loadApiKeys() {
         <td class="py-4 px-4 text-sm text-gray-600">${key.last_used_at ? new Date(key.last_used_at).toLocaleString('zh-CN') : '-'}</td>
         <td class="py-4 px-4">
           <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${key.is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
-            ${key.is_active ? '启用' : '禁用'}
+            ${key.is_active ? 'Kích hoạt' : 'Vô hiệu hóa'}
           </span>
         </td>
         <td class="py-4 px-4">
           <button onclick="toggleApiKey(${key.id}, ${key.is_active})" class="text-sm text-gray-600 hover:text-gray-900 mr-3">
-            ${key.is_active ? '禁用' : '启用'}
+            ${key.is_active ? 'Vô hiệu hóa' : 'Kích hoạt'}
           </button>
           <button onclick="deleteApiKey(${key.id})" class="text-sm text-red-600 hover:text-red-800">
-            删除
+            Xóa
           </button>
         </td>
       </tr>
     `).join('');
   } catch (error) {
-    console.error('加载 API Keys 失败:', error);
+    console.error('Tải API Keys thất bại:', error);
   }
 }
 
@@ -208,14 +208,14 @@ async function handleCreateApiKey(event) {
     if (response.ok) {
       document.getElementById('createApiKeyModal').classList.add('hidden');
       document.getElementById('apiKeyName').value = '';
-      alert('API Key 创建成功！\n\n' + data.key + '\n\n请妥善保存，此 Key 不会再次显示！');
+      alert('API Key TạoThành công！\n\n' + data.key + '\n\nVui lòng lưu kỹ, Key này sẽ không hiển thị lại!');
       await loadApiKeys();
       await loadStats();
     } else {
-      alert('创建失败: ' + (data.error || '未知错误'));
+      alert('Tạo thất bại: ' + (data.error || 'Không xác định lỗi'));
     }
   } catch (error) {
-    alert('创建失败: ' + error.message);
+    alert('Tạo thất bại: ' + error.message);
   }
 }
 
@@ -232,12 +232,12 @@ async function toggleApiKey(id, currentStatus) {
       await loadStats();
     }
   } catch (error) {
-    alert('操作失败: ' + error.message);
+    alert('Thao tácThất bại: ' + error.message);
   }
 }
 
 async function deleteApiKey(id) {
-  if (!confirm('确定要删除此 API Key 吗？')) return;
+  if (!confirm('Bạn có chắc muốn xóa API Key này không?')) return;
   
   try {
     const response = await fetch(`/admin/api-keys/${id}`, { method: 'DELETE' });
@@ -246,11 +246,11 @@ async function deleteApiKey(id) {
       await loadStats();
     }
   } catch (error) {
-    alert('删除失败: ' + error.message);
+    alert('XóaThất bại: ' + error.message);
   }
 }
 
-// ==================== Tokens 管理 ====================
+// ==================== Quản lý Tokens ====================
 
 let currentTokenPage = 1;
 let tokenPageSize = 20;
@@ -270,7 +270,7 @@ async function loadTokens(page = 1) {
     const pagination = result.pagination || {};
     totalTokens = pagination.total || 0;
     
-    // 更新账号总数显示
+    // Cập nhật hiển thị tổng số tài khoản
     const totalCountEl = document.getElementById('totalTokensCount');
     if (totalCountEl) {
       totalCountEl.textContent = totalTokens;
@@ -279,29 +279,29 @@ async function loadTokens(page = 1) {
     const tbody = document.getElementById('tokensTable');
     
     if (data.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="9" class="text-center py-8 text-gray-500">暂无 Token</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="9" class="text-center py-8 text-gray-500">Chưa có Token</td></tr>';
       updateTokenPagination(0, 0);
       return;
     }
     
     tbody.innerHTML = data.map(token => {
-      // 计算额度百分比
+      // Tính phần trăm hạn mức
       const quotaTotal = token.quota_total || 0;
       const quotaUsed = token.quota_used || 0;
       const quotaRemaining = token.quota_remaining || 0;
       const quotaPercent = quotaTotal > 0 ? Math.round((quotaUsed / quotaTotal) * 100) : 0;
       
-      // 额度显示颜色
+      // Xác định màu hạn mức
       let quotaColor = 'text-green-600';
       if (quotaPercent > 80) quotaColor = 'text-red-600';
       else if (quotaPercent > 50) quotaColor = 'text-yellow-600';
       
-      // 额度显示文本
+      // Xác định văn bản hạn mức
       let quotaText = '-';
       if (quotaTotal > 0) {
         quotaText = `<div class="text-xs ${quotaColor}">
           <div class="font-medium">${quotaRemaining.toLocaleString()} / ${quotaTotal.toLocaleString()}</div>
-          <div class="text-gray-500">${quotaPercent}% 已用</div>
+          <div class="text-gray-500">${quotaPercent}% đã sử dụng</div>
         </div>`;
       }
       
@@ -318,18 +318,18 @@ async function loadTokens(page = 1) {
         <td class="py-4 px-4 text-sm text-gray-600">${token.expired_at ? new Date(token.expired_at).toLocaleString('zh-CN') : '-'}</td>
         <td class="py-4 px-4">
           <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${token.is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
-            ${token.is_active ? '启用' : '禁用'}
+            ${token.is_active ? 'Kích hoạt' : 'Vô hiệu hóa'}
           </span>
         </td>
         <td class="py-4 px-4">
-          <button onclick="refreshTokenQuota(${token.id})" class="text-sm text-blue-600 hover:text-blue-800 mr-2" title="刷新额度">
+          <button onclick="refreshTokenQuota(${token.id})" class="text-sm text-blue-600 hover:text-blue-800 mr-2" title="Làm mới hạn mức">
             <i class="fas fa-sync-alt"></i>
           </button>
           <button onclick="toggleToken(${token.id}, ${token.is_active})" class="text-sm text-gray-600 hover:text-gray-900 mr-2">
-            ${token.is_active ? '禁用' : '启用'}
+            ${token.is_active ? 'Vô hiệu hóa' : 'Kích hoạt'}
           </button>
           <button onclick="deleteToken(${token.id})" class="text-sm text-red-600 hover:text-red-800">
-            删除
+            Xóa
           </button>
         </td>
       </tr>
@@ -338,7 +338,7 @@ async function loadTokens(page = 1) {
     
     updateTokenPagination(pagination.page, pagination.totalPages);
   } catch (error) {
-    console.error('加载 Tokens 失败:', error);
+    console.error('Tải Tokens thất bại:', error);
   }
 }
 
@@ -352,17 +352,17 @@ function updateTokenPagination(currentPage, totalPages) {
   }
   
   let html = '<div class="flex items-center justify-between mt-4">';
-  html += `<div class="text-sm text-gray-600">共 ${totalTokens} 个账号，第 ${currentPage}/${totalPages} 页</div>`;
+  html += `<div class="text-sm text-gray-600">Tổng ${totalTokens} tài khoản, trang ${currentPage}/${totalPages}</div>`;
   html += '<div class="flex space-x-2">';
   
-  // 上一页
+  // Trang trước
   if (currentPage > 1) {
-    html += `<button onclick="loadTokens(${currentPage - 1})" class="px-3 py-1 border border-gray-300 rounded hover:bg-gray-50">上一页</button>`;
+    html += `<button onclick="loadTokens(${currentPage - 1})" class="px-3 py-1 border border-gray-300 rounded hover:bg-gray-50">Trang trước</button>`;
   } else {
-    html += `<button disabled class="px-3 py-1 border border-gray-200 rounded text-gray-400 cursor-not-allowed">上一页</button>`;
+    html += `<button disabled class="px-3 py-1 border border-gray-200 rounded text-gray-400 cursor-not-allowed">Trang trước</button>`;
   }
   
-  // 页码
+  // Trang số
   const maxPages = 5;
   let startPage = Math.max(1, currentPage - Math.floor(maxPages / 2));
   let endPage = Math.min(totalPages, startPage + maxPages - 1);
@@ -393,11 +393,11 @@ function updateTokenPagination(currentPage, totalPages) {
     html += `<button onclick="loadTokens(${totalPages})" class="px-3 py-1 border border-gray-300 rounded hover:bg-gray-50">${totalPages}</button>`;
   }
   
-  // 下一页
+  // Trang sau
   if (currentPage < totalPages) {
-    html += `<button onclick="loadTokens(${currentPage + 1})" class="px-3 py-1 border border-gray-300 rounded hover:bg-gray-50">下一页</button>`;
+    html += `<button onclick="loadTokens(${currentPage + 1})" class="px-3 py-1 border border-gray-300 rounded hover:bg-gray-50">Trang sau</button>`;
   } else {
-    html += `<button disabled class="px-3 py-1 border border-gray-200 rounded text-gray-400 cursor-not-allowed">下一页</button>`;
+    html += `<button disabled class="px-3 py-1 border border-gray-200 rounded text-gray-400 cursor-not-allowed">Trang sau</button>`;
   }
   
   html += '</div></div>';
@@ -411,7 +411,7 @@ function showCreateTokenModal() {
 function showImportTokenModal() {
   document.getElementById('importTokenModal').classList.remove('hidden');
   
-  // 监听文件选择
+  // Lắng nghe lựa chọn tệp
   document.getElementById('tokenFileInput').addEventListener('change', handleFileSelect);
 }
 
@@ -426,55 +426,55 @@ function handleFileSelect(event) {
   const files = event.target.files;
   if (!files || files.length === 0) return;
   
-  // 如果只有一个文件，直接读取
+  // Nếu chỉ một tệp, đọc trực tiếp
   if (files.length === 1) {
     const reader = new FileReader();
     reader.onload = function(e) {
       document.getElementById('tokenJsonContent').value = e.target.result;
     };
     reader.onerror = function(e) {
-      alert('文件读取失败: ' + e.target.error);
+      alert('Đọc tệp thất bại: ' + e.target.error);
     };
     reader.readAsText(files[0]);
     return;
   }
   
-  // 多个文件，合并成数组
+  // Nhiều tệp, gộp thành mảng
   let allTokens = [];
   let filesRead = 0;
   const totalFiles = files.length;
   
-  console.log(`开始读取 ${totalFiles} 个文件...`);
+  console.log(`Bắt đầu đọc ${totalFiles} tệp...`);
   
   Array.from(files).forEach((file, index) => {
     const reader = new FileReader();
     reader.onload = function(e) {
       try {
-        console.log(`读取文件 ${index + 1}/${totalFiles}: ${file.name}`);
+        console.log(`Đọc tệp ${index + 1}/${totalFiles}: ${file.name}`);
         const data = JSON.parse(e.target.result);
-        // 如果是数组，展开；如果是对象，作为单个元素
+        // Nếu là mảng, mở rộng; nếu là đối tượng, thêm một phần tử
         if (Array.isArray(data)) {
           allTokens = allTokens.concat(data);
-          console.log(`文件 ${file.name} 包含 ${data.length} 个 token`);
+          console.log(`Tệp ${file.name} chứa ${data.length} token`);
         } else {
           allTokens.push(data);
-          console.log(`文件 ${file.name} 包含 1 个 token`);
+          console.log(`Tệp ${file.name} chứa 1 token`);
         }
       } catch (error) {
-        console.error(`文件 ${file.name} 解析失败:`, error);
-        alert(`文件 ${file.name} 解析失败: ${error.message}`);
+        console.error(`Tệp ${file.name} phân tích thất bại:`, error);
+        alert(`Tệp ${file.name} phân tích thất bại: ${error.message}`);
       }
       
       filesRead++;
-      // 所有文件都读取完成后，更新文本框
+      // Sau khi tất cả tệp đã được đọc xong, cập nhật vùng văn bản
       if (filesRead === totalFiles) {
-        console.log(`所有文件读取完成，共 ${allTokens.length} 个 token`);
+        console.log(`Tất cả tệp đã đọc xong, tổng cộng ${allTokens.length} token`);
         document.getElementById('tokenJsonContent').value = JSON.stringify(allTokens, null, 2);
       }
     };
     reader.onerror = function(e) {
-      console.error(`文件 ${file.name} 读取失败:`, e.target.error);
-      alert(`文件 ${file.name} 读取失败`);
+      console.error(`Tệp ${file.name} đọc thất bại:`, e.target.error);
+      alert(`Tệp ${file.name} đọc thất bại`);
       filesRead++;
       if (filesRead === totalFiles && allTokens.length > 0) {
         document.getElementById('tokenJsonContent').value = JSON.stringify(allTokens, null, 2);
@@ -490,7 +490,7 @@ function previewImport() {
   const jsonContent = document.getElementById('tokenJsonContent').value.trim();
   
   if (!jsonContent) {
-    alert('请先选择文件或粘贴 JSON 内容');
+    alert('Vui lòng chọn tệp hoặc dán nội dung JSON trước');
     return;
   }
   
@@ -501,17 +501,17 @@ function previewImport() {
       importData = [importData];
     }
     
-    // 验证数据格式
+    // Xác minh định dạng dữ liệu
     const validTokens = importData.filter(token => {
       return token.access_token && token.refresh_token;
     });
     
     if (validTokens.length === 0) {
-      alert('JSON 格式错误：未找到有效的 token 数据\n\n每个 token 必须包含 access_token 和 refresh_token 字段');
+      alert('Định dạng JSON sai: không tìm thấy dữ liệu token hợp lệ\n\nMỗi token phải chứa access_token và refresh_token');
       return;
     }
     
-    // 显示预览
+    // Hiển thị xem trước
     document.getElementById('importCount').textContent = validTokens.length;
     const listEl = document.getElementById('importList');
     listEl.innerHTML = validTokens.map((token, index) => `
@@ -525,17 +525,17 @@ function previewImport() {
     importData = validTokens;
     
   } catch (error) {
-    alert('JSON 解析失败：' + error.message);
+    alert('Phân tích JSON thất bại:' + error.message);
   }
 }
 
 async function handleImportTokens() {
   if (!importData || importData.length === 0) {
-    alert('请先预览导入数据');
+    alert('Vui lòng xem trước dữ liệu nhập trước');
     return;
   }
   
-  if (!confirm(`确定要导入 ${importData.length} 个账户吗？`)) {
+  if (!confirm(`Bạn có chắc muốn nhập ${importData.length} tài khoản không?`)) {
     return;
   }
   
@@ -549,15 +549,15 @@ async function handleImportTokens() {
     const data = await response.json();
     
     if (response.ok) {
-      alert(`导入成功！\n成功：${data.success || 0} 个\n失败：${data.failed || 0} 个`);
+      alert(`Nhập thành công!\nThành công: ${data.success || 0}\nThất bại: ${data.failed || 0}`);
       closeImportModal();
       await loadTokens();
       await loadStats();
     } else {
-      alert('导入失败: ' + (data.error || '未知错误'));
+      alert('Nhập thất bại: ' + (data.error || 'Không xác định lỗi'));
     }
   } catch (error) {
-    alert('导入失败: ' + error.message);
+    alert('Nhập thất bại: ' + error.message);
   }
 }
 
@@ -582,14 +582,14 @@ async function handleCreateToken(event) {
       document.getElementById('tokenName').value = '';
       document.getElementById('accessToken').value = '';
       document.getElementById('refreshToken').value = '';
-      alert('Token 添加成功！');
+      alert('Thêm Token thành công!');
       await loadTokens();
       await loadStats();
     } else {
-      alert('添加失败: ' + (data.error || '未知错误'));
+      alert('Thêm thất bại: ' + (data.error || 'Không xác định lỗi'));
     }
   } catch (error) {
-    alert('添加失败: ' + error.message);
+    alert('Thêm thất bại: ' + error.message);
   }
 }
 
@@ -606,12 +606,12 @@ async function toggleToken(id, currentStatus) {
       await loadStats();
     }
   } catch (error) {
-    alert('操作失败: ' + error.message);
+    alert('Thao tácThất bại: ' + error.message);
   }
 }
 
 async function deleteToken(id) {
-  if (!confirm('确定要删除此 Token 吗？')) return;
+  if (!confirm('Bạn có chắc muốn xóa Token này không?')) return;
   
   try {
     const response = await fetch(`/admin/tokens/${id}`, { method: 'DELETE' });
@@ -620,7 +620,7 @@ async function deleteToken(id) {
       await loadStats();
     }
   } catch (error) {
-    alert('删除失败: ' + error.message);
+    alert('XóaThất bại: ' + error.message);
   }
 }
 
@@ -632,18 +632,18 @@ async function refreshTokenQuota(id) {
     if (response.ok) {
       await loadTokens(currentTokenPage);
       if (data.quota) {
-        alert(`额度已更新\n总额度: ${data.quota.total.toLocaleString()}\n已使用: ${data.quota.used.toLocaleString()}\n剩余: ${data.quota.remaining.toLocaleString()}`);
+        alert(`Hạn mức đã cập nhật\nTổng hạn mức: ${data.quota.total.toLocaleString()}\nĐã sử dụng: ${data.quota.used.toLocaleString()}\nCòn lại: ${data.quota.remaining.toLocaleString()}`);
       }
     } else {
-      alert('刷新额度失败: ' + (data.error || '未知错误'));
+      alert('Làm mới hạn mức thất bại: ' + (data.error || 'Không xác định lỗi'));
     }
   } catch (error) {
-    alert('刷新额度失败: ' + error.message);
+    alert('Làm mới hạn mức thất bại: ' + error.message);
   }
 }
 
 async function refreshAllQuotas() {
-  if (!confirm('确定要刷新所有账号的额度吗？这可能需要一些时间。')) {
+  if (!confirm('Bạn có chắc muốn làm mới hạn mức tất cả tài khoản không? Việc này có thể mất một thời gian.')) {
     return;
   }
   
@@ -653,16 +653,16 @@ async function refreshAllQuotas() {
     
     if (response.ok) {
       await loadTokens(currentTokenPage);
-      alert(`批量刷新完成\n成功: ${data.success || 0} 个\n失败: ${data.failed || 0} 个`);
+      alert(`Làm mới hàng loạt hoàn tất\nThành công: ${data.success || 0}\nThất bại: ${data.failed || 0}`);
     } else {
-      alert('批量刷新失败: ' + (data.error || '未知错误'));
+      alert('Làm mới hàng loạt thất bại: ' + (data.error || 'Không xác định lỗi'));
     }
   } catch (error) {
-    alert('批量刷新失败: ' + error.message);
+    alert('Làm mới hàng loạt thất bại: ' + error.message);
   }
 }
 
-// ==================== 批量删除功能 ====================
+// ==================== Chức năng xóa hàng loạt ====================
 
 function toggleTokenSelection(id) {
   if (selectedTokens.has(id)) {
@@ -721,11 +721,11 @@ function updateBatchDeleteButton() {
 
 async function batchDeleteTokens() {
   if (selectedTokens.size === 0) {
-    alert('请先选择要删除的账号');
+    alert('Vui lòng chọn tài khoản để xóa trước');
     return;
   }
   
-  if (!confirm(`确定要删除选中的 ${selectedTokens.size} 个账号吗？此操作不可恢复！`)) {
+  if (!confirm(`Bạn có chắc muốn xóa ${selectedTokens.size} tài khoản đã chọn không? Hành động này không thể phục hồi!`)) {
     return;
   }
   
@@ -740,28 +740,28 @@ async function batchDeleteTokens() {
     const data = await response.json();
     
     if (response.ok) {
-      alert(`批量删除完成\n成功: ${data.success || 0} 个\n失败: ${data.failed || 0} 个`);
+      alert(`Xóa hàng loạt hoàn tất\nThành công: ${data.success || 0}\nThất bại: ${data.failed || 0}`);
       selectedTokens.clear();
       await loadTokens(currentTokenPage);
       await loadStats();
     } else {
-      alert('批量删除失败: ' + (data.error || '未知错误'));
+      alert('Xóa hàng loạt thất bại: ' + (data.error || 'Không xác định lỗi'));
     }
   } catch (error) {
-    alert('批量删除失败: ' + error.message);
+    alert('Xóa hàng loạt thất bại: ' + error.message);
   }
 }
 
-// ==================== 日志管理 ====================
+// ==================== Quản lý nhật ký ====================
 
 async function loadAnalytics() {
-  // 加载统计数据
+  // Tải dữ liệu thống kê
   await loadAnalyticsStats();
-  // 加载图表
+  // Tải biểu đồ
   await loadCharts();
-  // 加载模型统计
+  // Tải thống kê mô hình
   await loadModelStats();
-  // 加载日志
+  // Tải nhật ký
   await loadLogs();
 }
 
@@ -770,7 +770,7 @@ let currentTimeRange = '24h';
 function changeTimeRange(range) {
   currentTimeRange = range;
   
-  // 更新按钮样式
+  // Cập nhật kiểu nút
   document.querySelectorAll('.time-range-btn').forEach(btn => {
     btn.classList.remove('bg-blue-500', 'text-white');
     btn.classList.add('text-gray-700', 'hover:bg-gray-100');
@@ -778,7 +778,7 @@ function changeTimeRange(range) {
   event.target.classList.add('bg-blue-500', 'text-white');
   event.target.classList.remove('text-gray-700', 'hover:bg-gray-100');
   
-  // 重新加载数据
+  // Tải lại dữ liệu
   loadAnalytics();
 }
 
@@ -792,7 +792,7 @@ async function loadAnalyticsStats() {
     document.getElementById('failedRequests').textContent = data.failedRequests || 0;
     document.getElementById('avgResponseTime').textContent = (data.avgResponseTime || 0) + 'ms';
   } catch (error) {
-    console.error('加载统计数据失败:', error);
+    console.error('Tải dữ liệu thống kê thất bại:', error);
   }
 }
 
@@ -804,7 +804,7 @@ async function loadCharts() {
     const response = await fetch(`/admin/stats/charts?range=${currentTimeRange}`);
     const data = await response.json();
     
-    // 请求量趋势图
+    // Biểu đồ xu hướng số lượng yêu cầu
     const trendCtx = document.getElementById('requestTrendChart').getContext('2d');
     if (requestTrendChart) {
       requestTrendChart.destroy();
@@ -814,7 +814,7 @@ async function loadCharts() {
       data: {
         labels: data.trendLabels || [],
         datasets: [{
-          label: '请求数',
+          label: 'Số yêu cầu',
           data: data.trendData || [],
           borderColor: '#3b82f6',
           backgroundColor: 'rgba(59, 130, 246, 0.1)',
@@ -837,7 +837,7 @@ async function loadCharts() {
       }
     });
     
-    // 模型使用分布饼图
+    // Biểu đồ phân phối sử dụng mô hình
     const distCtx = document.getElementById('modelDistributionChart').getContext('2d');
     if (modelDistributionChart) {
       modelDistributionChart.destroy();
@@ -869,7 +869,7 @@ async function loadCharts() {
       }
     });
   } catch (error) {
-    console.error('加载图表失败:', error);
+    console.error('Tải biểu đồ thất bại:', error);
   }
 }
 
@@ -881,7 +881,7 @@ async function loadModelStats() {
     const tbody = document.getElementById('accountStatsTable');
     
     if (data.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="5" class="text-center py-8 text-gray-500">暂无数据</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="5" class="text-center py-8 text-gray-500">Chưa có dữ liệu</td></tr>';
       return;
     }
     
@@ -899,7 +899,7 @@ async function loadModelStats() {
       </tr>
     `).join('');
   } catch (error) {
-    console.error('加载账号统计失败:', error);
+    console.error('Tải thống kê tài khoản thất bại:', error);
   }
 }
 
@@ -911,7 +911,7 @@ async function loadLogs() {
     const tbody = document.getElementById('logsTable');
     
     if (data.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="5" class="text-center py-8 text-gray-500">暂无日志</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="5" class="text-center py-8 text-gray-500">Chưa có nhật ký</td></tr>';
       return;
     }
     
@@ -929,14 +929,14 @@ async function loadLogs() {
       </tr>
     `).join('');
   } catch (error) {
-    console.error('加载日志失败:', error);
+    console.error('Tải nhật ký thất bại:', error);
   }
 }
 
-// ==================== 工具函数 ====================
+// ==================== Hàm tiện ích ====================
 
 async function handleLogout() {
-  if (!confirm('确定要退出登录吗？')) return;
+  if (!confirm('Bạn có chắc muốn đăng xuất không?')) return;
   
   try {
     await fetch('/admin/auth/logout', { method: 'POST' });
@@ -948,13 +948,13 @@ async function handleLogout() {
 
 function copyToClipboard(text) {
   navigator.clipboard.writeText(text).then(() => {
-    alert('已复制到剪贴板！');
+    alert('Đã sao chép vào khay nhớ tạm!');
   }).catch(() => {
-    alert('复制失败，请手动复制');
+    alert('Sao chép thất bại, vui lòng sao chép thủ công');
   });
 }
 
-// ==================== 负载均衡策略管理 ====================
+// ==================== Quản lý chiến lược cân bằng tải ====================
 
 async function loadLoadBalanceStrategy() {
   try {
@@ -966,7 +966,7 @@ async function loadLoadBalanceStrategy() {
       select.value = data.strategy;
     }
   } catch (error) {
-    console.error('加载负载均衡策略失败:', error);
+    console.error('Tải chiến lược cân bằng tải thất bại:', error);
   }
 }
 
@@ -984,16 +984,16 @@ async function changeLoadBalanceStrategy() {
     const data = await response.json();
     
     if (response.ok) {
-      alert('负载均衡策略已更新为：' + (strategy === 'round-robin' ? '轮询' : strategy === 'random' ? '随机' : '最少使用'));
+      alert('Chiến lược cân bằng tải đã cập nhật thành: ' + (strategy === 'round-robin' ? 'Luân phiên' : strategy === 'random' ? 'Ngẫu nhiên' : 'Ít sử dụng nhất'));
     } else {
-      alert('更新失败: ' + (data.error || '未知错误'));
+      alert('Cập nhật thất bại: ' + (data.error || 'Không xác định lỗi'));
     }
   } catch (error) {
-    alert('更新失败: ' + error.message);
+    alert('Cập nhật thất bại: ' + error.message);
   }
 }
 
-// ==================== 修改密码 ====================
+// ==================== Thay đổi mật khẩu ====================
 
 function showChangePasswordModal() {
   document.getElementById('changePasswordModal').classList.remove('hidden');
@@ -1014,12 +1014,12 @@ async function handleChangePassword(event) {
   const confirmPassword = document.getElementById('confirmPassword').value;
   
   if (newPassword !== confirmPassword) {
-    alert('两次输入的新密码不一致');
+    alert('Mật khẩu mới nhập lại không khớp');
     return;
   }
   
   if (newPassword.length < 6) {
-    alert('密码长度至少 6 位');
+    alert('Mật khẩu phải có ít nhất 6 ký tự');
     return;
   }
   
@@ -1033,18 +1033,18 @@ async function handleChangePassword(event) {
     const data = await response.json();
     
     if (response.ok) {
-      alert('密码修改成功，请重新登录');
+      alert('Đổi mật khẩu thành công, vui lòng đăng nhập lại');
       closeChangePasswordModal();
       window.location.href = '/admin/login.html';
     } else {
-      alert('修改失败: ' + (data.error || '未知错误'));
+      alert('Thay đổi thất bại: ' + (data.error || 'Không xác định lỗi'));
     }
   } catch (error) {
-    alert('修改失败: ' + error.message);
+    alert('Thay đổi thất bại: ' + error.message);
   }
 }
 
-// ==================== 工具函数 ====================
+// ==================== Hàm tiện ích ====================
 
 function escapeHtml(text) {
   const div = document.createElement('div');

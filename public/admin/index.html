@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="vi">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>管理后台 - GPT2API Node</title>
+  <title>Bảng điều khiển quản trị - GPT2API Node</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
@@ -12,7 +12,7 @@
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     }
     
-    /* 导航项 */
+    /* Mục điều hướng */
     .nav-item {
       transition: all 0.2s ease;
     }
@@ -26,7 +26,7 @@
       color: #fff;
     }
     
-    /* 卡片悬停效果 */
+    /* Hiệu ứng hover thẻ */
     .stat-card {
       transition: all 0.2s ease;
     }
@@ -36,7 +36,7 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
     
-    /* 按钮悬停 */
+    /* Hiệu ứng hover nút */
     .btn-primary {
       transition: background-color 0.2s ease;
     }
@@ -45,7 +45,7 @@
       background-color: #2563eb;
     }
     
-    /* 表格行悬停 */
+    /* Hiệu ứng hover dòng bảng */
     tbody tr {
       transition: background-color 0.2s ease;
     }
@@ -68,10 +68,10 @@
             </div>
             <div>
               <h1 class="text-lg font-semibold text-gray-900">GPT2API</h1>
-              <p class="text-xs text-gray-500">管理控制台</p>
+              <p class="text-xs text-gray-500">Bảng điều khiển quản trị</p>
             </div>
           </div>
-          <a href="https://github.com/lulistart/gpt2api-node" target="_blank" class="text-gray-900 hover:text-blue-600 transition" title="GitHub 项目">
+          <a href="https://github.com/lulistart/gpt2api-node" target="_blank" class="text-gray-900 hover:text-blue-600 transition" title="Dự án GitHub">
             <i class="fab fa-github text-4xl"></i>
           </a>
         </div>
@@ -81,7 +81,7 @@
       <nav class="flex-1 p-4 space-y-1">
         <a href="#" onclick="switchPage(event, 'dashboard')" class="nav-item active flex items-center space-x-3 px-4 py-3 rounded-lg text-sm font-medium">
           <i class="fas fa-chart-line w-5"></i>
-          <span>仪表盘</span>
+          <span>Bảng điều khiển</span>
         </a>
         <a href="#" onclick="switchPage(event, 'apikeys')" class="nav-item flex items-center space-x-3 px-4 py-3 rounded-lg text-sm font-medium text-gray-700">
           <i class="fas fa-key w-5"></i>
@@ -89,15 +89,15 @@
         </a>
         <a href="#" onclick="switchPage(event, 'accounts')" class="nav-item flex items-center space-x-3 px-4 py-3 rounded-lg text-sm font-medium text-gray-700">
           <i class="fas fa-users w-5"></i>
-          <span>账号管理</span>
+          <span>Quản lý tài khoản</span>
         </a>
         <a href="#" onclick="switchPage(event, 'analytics')" class="nav-item flex items-center space-x-3 px-4 py-3 rounded-lg text-sm font-medium text-gray-700">
           <i class="fas fa-chart-bar w-5"></i>
-          <span>数据分析</span>
+          <span>Phân tích dữ liệu</span>
         </a>
         <a href="#" onclick="switchPage(event, 'settings')" class="nav-item flex items-center space-x-3 px-4 py-3 rounded-lg text-sm font-medium text-gray-700">
           <i class="fas fa-cog w-5"></i>
-          <span>系统设置</span>
+          <span>Cài đặt hệ thống</span>
         </a>
       </nav>
 
@@ -110,10 +110,10 @@
             </div>
             <div>
               <p class="text-sm font-medium text-gray-900">Admin</p>
-              <p class="text-xs text-gray-500">管理员</p>
+              <p class="text-xs text-gray-500">Quản trị viên</p>
             </div>
           </div>
-          <button onclick="handleLogout()" class="text-gray-400 hover:text-gray-600 transition" title="退出登录">
+          <button onclick="handleLogout()" class="text-gray-400 hover:text-gray-600 transition" title="Đăng xuất">
             <i class="fas fa-sign-out-alt"></i>
           </button>
         </div>
@@ -126,8 +126,8 @@
       <header class="bg-white border-b border-gray-200 px-8 py-4">
         <div class="flex items-center justify-between">
           <div>
-            <h2 class="text-2xl font-semibold text-gray-900" id="pageTitle">仪表盘</h2>
-            <p class="text-sm text-gray-500 mt-1" id="pageDesc">系统概览和实时数据</p>
+            <h2 class="text-2xl font-semibold text-gray-900" id="pageTitle">Bảng điều khiển</h2>
+            <p class="text-sm text-gray-500 mt-1" id="pageDesc">Tổng quan hệ thống và dữ liệu thời gian thực</p>
           </div>
         </div>
       </header>
@@ -144,7 +144,7 @@
               <span class="text-2xl font-bold text-gray-900" id="apiKeysCount">0</span>
             </div>
             <h3 class="text-sm font-medium text-gray-600">API Keys</h3>
-            <p class="text-xs text-gray-400 mt-1">活跃密钥数量</p>
+            <p class="text-xs text-gray-400 mt-1">Số khóa hoạt động</p>
           </div>
 
           <div class="stat-card bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
@@ -155,7 +155,7 @@
               <span class="text-2xl font-bold text-gray-900" id="tokensCount">0</span>
             </div>
             <h3 class="text-sm font-medium text-gray-600">Tokens</h3>
-            <p class="text-xs text-gray-400 mt-1">账户令牌数量</p>
+            <p class="text-xs text-gray-400 mt-1">Số token tài khoản</p>
           </div>
 
           <div class="stat-card bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
@@ -165,8 +165,8 @@
               </div>
               <span class="text-2xl font-bold text-gray-900" id="todayRequests">0</span>
             </div>
-            <h3 class="text-sm font-medium text-gray-600">今日请求</h3>
-            <p class="text-xs text-gray-400 mt-1">API 调用次数</p>
+            <h3 class="text-sm font-medium text-gray-600">Yêu cầu hôm nay</h3>
+            <p class="text-xs text-gray-400 mt-1">Số lần gọi API</p>
           </div>
 
           <div class="stat-card bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
@@ -176,19 +176,19 @@
               </div>
               <span class="text-2xl font-bold text-gray-900" id="successRate">100%</span>
             </div>
-            <h3 class="text-sm font-medium text-gray-600">成功率</h3>
-            <p class="text-xs text-gray-400 mt-1">请求成功比例</p>
+            <h3 class="text-sm font-medium text-gray-600">Tỷ lệ thành công</h3>
+            <p class="text-xs text-gray-400 mt-1">Tỷ lệ yêu cầu thành công</p>
           </div>
         </div>
 
         <!-- Recent Activity -->
         <div class="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
           <h3 class="text-lg font-semibold text-gray-900 mb-4">
-            <i class="fas fa-clock mr-2 text-blue-600"></i>最近活动
+            <i class="fas fa-clock mr-2 text-blue-600"></i>Hoạt động gần đây
           </h3>
           <div class="space-y-3" id="recentActivity">
             <div class="text-center py-8 text-gray-500">
-              <i class="fas fa-info-circle mr-2"></i>暂无活动记录
+              <i class="fas fa-info-circle mr-2"></i>Chưa có hoạt động
             </div>
           </div>
         </div>
@@ -198,9 +198,9 @@
       <div id="apikeysPage" class="p-8 hidden">
         <div class="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
           <div class="flex justify-between items-center mb-6">
-            <h2 class="text-xl font-semibold text-gray-900">API Keys 管理</h2>
+            <h2 class="text-xl font-semibold text-gray-900">Quản lý API Keys</h2>
             <button onclick="showCreateApiKeyModal()" class="btn-primary px-4 py-2 bg-blue-500 text-white text-sm font-medium rounded-lg hover:bg-blue-600 transition">
-              <i class="fas fa-plus mr-2"></i>创建 API Key
+              <i class="fas fa-plus mr-2"></i>Tạo API Key
             </button>
           </div>
           
@@ -208,18 +208,18 @@
             <table class="w-full">
               <thead>
                 <tr class="border-b border-gray-200 bg-gray-50">
-                  <th class="text-left py-3 px-4 text-sm font-medium text-gray-600">名称</th>
+                  <th class="text-left py-3 px-4 text-sm font-medium text-gray-600">Tên</th>
                   <th class="text-left py-3 px-4 text-sm font-medium text-gray-600">Key</th>
-                  <th class="text-left py-3 px-4 text-sm font-medium text-gray-600">使用次数</th>
-                  <th class="text-left py-3 px-4 text-sm font-medium text-gray-600">最后使用</th>
-                  <th class="text-left py-3 px-4 text-sm font-medium text-gray-600">状态</th>
-                  <th class="text-left py-3 px-4 text-sm font-medium text-gray-600">操作</th>
+                  <th class="text-left py-3 px-4 text-sm font-medium text-gray-600">Số lần sử dụng</th>
+                  <th class="text-left py-3 px-4 text-sm font-medium text-gray-600">Lần cuối sử dụng</th>
+                  <th class="text-left py-3 px-4 text-sm font-medium text-gray-600">Trạng thái</th>
+                  <th class="text-left py-3 px-4 text-sm font-medium text-gray-600">Thao tác</th>
                 </tr>
               </thead>
               <tbody id="apiKeysTable">
                 <tr>
                   <td colspan="6" class="text-center py-8 text-gray-500">
-                    <i class="fas fa-spinner fa-spin mr-2"></i>加载中...
+                    <i class="fas fa-spinner fa-spin mr-2"></i>Đang tải...
                   </td>
                 </tr>
               </tbody>
@@ -233,30 +233,30 @@
         <div class="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
           <div class="flex justify-between items-center mb-6">
             <div class="flex items-center space-x-4">
-              <h2 class="text-xl font-semibold text-gray-900">账号管理 (Tokens)</h2>
+              <h2 class="text-xl font-semibold text-gray-900">Quản lý tài khoản (Tokens)</h2>
               <div class="flex items-center space-x-2">
-                <span class="text-sm text-gray-600">账号总数: <span id="totalTokensCount" class="font-semibold text-gray-900">0</span></span>
+                <span class="text-sm text-gray-600">Tổng tài khoản: <span id="totalTokensCount" class="font-semibold text-gray-900">0</span></span>
                 <span class="text-gray-300">|</span>
-                <label class="text-sm text-gray-600">负载均衡:</label>
+                <label class="text-sm text-gray-600">Cân bằng tải:</label>
                 <select id="loadBalanceStrategy" onchange="changeLoadBalanceStrategy()" class="px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                  <option value="round-robin">轮询</option>
-                  <option value="random">随机</option>
-                  <option value="least-used">最少使用</option>
+                  <option value="round-robin">Luân phiên</option>
+                  <option value="random">Ngẫu nhiên</option>
+                  <option value="least-used">Ít sử dụng nhất</option>
                 </select>
               </div>
               <button id="batchDeleteBtn" onclick="batchDeleteTokens()" class="hidden px-4 py-2 bg-red-100 text-red-700 text-sm font-medium rounded-lg hover:bg-red-200 transition">
-                <i class="fas fa-trash-alt mr-2"></i>删除选中 (<span id="selectedCount">0</span>)
+                <i class="fas fa-trash-alt mr-2"></i>Xóa mục đã chọn (<span id="selectedCount">0</span>)
               </button>
             </div>
             <div class="flex space-x-3">
               <button onclick="refreshAllQuotas()" class="px-4 py-2 bg-green-100 text-green-700 text-sm font-medium rounded-lg hover:bg-green-200 transition">
-                <i class="fas fa-sync-alt mr-2"></i>刷新全部额度
+                <i class="fas fa-sync-alt mr-2"></i>Làm mới toàn bộ hạn mức
               </button>
               <button onclick="showImportTokenModal()" class="px-4 py-2 bg-gray-100 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-200 transition">
-                <i class="fas fa-file-import mr-2"></i>导入 JSON
+                <i class="fas fa-file-import mr-2"></i>Nhập JSON
               </button>
               <button onclick="showCreateTokenModal()" class="btn-primary px-4 py-2 bg-blue-500 text-white text-sm font-medium rounded-lg hover:bg-blue-600 transition">
-                <i class="fas fa-plus mr-2"></i>手动添加
+                <i class="fas fa-plus mr-2"></i>Thêm thủ công
               </button>
             </div>
           </div>
@@ -268,55 +268,55 @@
                   <th class="text-left py-3 px-4 text-sm font-medium text-gray-600">
                     <input type="checkbox" id="selectAllTokens" onchange="toggleSelectAll()" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
                   </th>
-                  <th class="text-left py-3 px-4 text-sm font-medium text-gray-600">名称</th>
-                  <th class="text-left py-3 px-4 text-sm font-medium text-gray-600">额度</th>
-                  <th class="text-left py-3 px-4 text-sm font-medium text-gray-600">总请求</th>
-                  <th class="text-left py-3 px-4 text-sm font-medium text-gray-600">成功</th>
-                  <th class="text-left py-3 px-4 text-sm font-medium text-gray-600">失败</th>
-                  <th class="text-left py-3 px-4 text-sm font-medium text-gray-600">过期时间</th>
-                  <th class="text-left py-3 px-4 text-sm font-medium text-gray-600">状态</th>
-                  <th class="text-left py-3 px-4 text-sm font-medium text-gray-600">操作</th>
+                  <th class="text-left py-3 px-4 text-sm font-medium text-gray-600">Tên</th>
+                  <th class="text-left py-3 px-4 text-sm font-medium text-gray-600">Hạn mức</th>
+                  <th class="text-left py-3 px-4 text-sm font-medium text-gray-600">Tổng yêu cầu</th>
+                  <th class="text-left py-3 px-4 text-sm font-medium text-gray-600">Thành công</th>
+                  <th class="text-left py-3 px-4 text-sm font-medium text-gray-600">Thất bại</th>
+                  <th class="text-left py-3 px-4 text-sm font-medium text-gray-600">Thời gian hết hạn</th>
+                  <th class="text-left py-3 px-4 text-sm font-medium text-gray-600">Trạng thái</th>
+                  <th class="text-left py-3 px-4 text-sm font-medium text-gray-600">Thao tác</th>
                 </tr>
               </thead>
               <tbody id="tokensTable">
                 <tr>
                   <td colspan="9" class="text-center py-8 text-gray-500">
-                    <i class="fas fa-spinner fa-spin mr-2"></i>加载中...
+                    <i class="fas fa-spinner fa-spin mr-2"></i>Đang tải...
                   </td>
                 </tr>
               </tbody>
             </table>
           </div>
           
-          <!-- 分页 -->
+          <!-- Phân trang -->
           <div id="tokenPagination" class="px-6 pb-6"></div>
         </div>
       </div>
 
       <!-- Analytics Page -->
       <div id="analyticsPage" class="p-8 hidden">
-        <!-- 时间范围选择 -->
+        <!-- Chọn khoảng thời gian -->
         <div class="bg-white rounded-lg border border-gray-200 shadow-sm p-4 mb-6">
           <div class="flex items-center space-x-4">
-            <label class="text-sm font-medium text-gray-700">时间范围：</label>
+            <label class="text-sm font-medium text-gray-700">Khoảng thời gian:</label>
             <button onclick="changeTimeRange('24h')" class="time-range-btn px-4 py-2 text-sm font-medium rounded-lg transition bg-blue-500 text-white">
-              24小时
+              24 giờ
             </button>
             <button onclick="changeTimeRange('7d')" class="time-range-btn px-4 py-2 text-sm font-medium rounded-lg transition text-gray-700 hover:bg-gray-100">
-              7天
+              7 ngày
             </button>
             <button onclick="changeTimeRange('30d')" class="time-range-btn px-4 py-2 text-sm font-medium rounded-lg transition text-gray-700 hover:bg-gray-100">
-              30天
+              30 ngày
             </button>
           </div>
         </div>
 
-        <!-- 统计卡片 -->
+        <!-- Thẻ thống kê -->
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
           <div class="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
             <div class="flex items-center justify-between">
               <div>
-                <p class="text-sm text-gray-500">总请求数</p>
+                <p class="text-sm text-gray-500">Tổng yêu cầu</p>
                 <p class="text-2xl font-bold text-gray-900 mt-1" id="totalRequests">0</p>
               </div>
               <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
@@ -328,7 +328,7 @@
           <div class="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
             <div class="flex items-center justify-between">
               <div>
-                <p class="text-sm text-gray-500">成功请求</p>
+                <p class="text-sm text-gray-500">Yêu cầu thành công</p>
                 <p class="text-2xl font-bold text-green-600 mt-1" id="successRequests">0</p>
               </div>
               <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
@@ -340,7 +340,7 @@
           <div class="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
             <div class="flex items-center justify-between">
               <div>
-                <p class="text-sm text-gray-500">失败请求</p>
+                <p class="text-sm text-gray-500">Yêu cầu thất bại</p>
                 <p class="text-2xl font-bold text-red-600 mt-1" id="failedRequests">0</p>
               </div>
               <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
@@ -352,7 +352,7 @@
           <div class="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
             <div class="flex items-center justify-between">
               <div>
-                <p class="text-sm text-gray-500">平均响应时间</p>
+                <p class="text-sm text-gray-500">Thời gian phản hồi trung bình</p>
                 <p class="text-2xl font-bold text-purple-600 mt-1" id="avgResponseTime">0ms</p>
               </div>
               <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
@@ -362,22 +362,22 @@
           </div>
         </div>
 
-        <!-- 图表区域 -->
+        <!-- Khu vực biểu đồ -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-          <!-- 请求量趋势图 -->
+          <!-- Biểu đồ xu hướng lượng yêu cầu -->
           <div class="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
             <h3 class="text-lg font-semibold text-gray-900 mb-4">
-              <i class="fas fa-chart-line text-blue-600 mr-2"></i>请求量趋势
+              <i class="fas fa-chart-line text-blue-600 mr-2"></i>Xu hướng lượng yêu cầu
             </h3>
             <div style="height: 250px;">
               <canvas id="requestTrendChart"></canvas>
             </div>
           </div>
 
-          <!-- 模型使用分布 -->
+          <!-- Biểu đồ phân phối sử dụng mô hình -->
           <div class="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
             <h3 class="text-lg font-semibold text-gray-900 mb-4">
-              <i class="fas fa-chart-pie text-green-600 mr-2"></i>模型使用分布
+              <i class="fas fa-chart-pie text-green-600 mr-2"></i>Phân phối sử dụng mô hình
             </h3>
             <div style="height: 250px;">
               <canvas id="modelDistributionChart"></canvas>
@@ -385,26 +385,26 @@
           </div>
         </div>
 
-        <!-- 账号详细统计 -->
+        <!-- Thống kê chi tiết tài khoản -->
         <div class="bg-white rounded-lg border border-gray-200 shadow-sm p-6 mb-6">
           <h3 class="text-lg font-semibold text-gray-900 mb-4">
-            <i class="fas fa-table text-purple-600 mr-2"></i>账号详细统计
+            <i class="fas fa-table text-purple-600 mr-2"></i>Thống kê chi tiết tài khoản
           </h3>
           <div class="overflow-x-auto max-h-96 overflow-y-auto">
             <table class="w-full">
               <thead class="sticky top-0 bg-gray-50">
                 <tr class="border-b border-gray-200">
-                  <th class="text-left py-3 px-4 text-sm font-medium text-gray-600">账号名称</th>
-                  <th class="text-left py-3 px-4 text-sm font-medium text-gray-600">请求次数</th>
-                  <th class="text-left py-3 px-4 text-sm font-medium text-gray-600">成功率</th>
-                  <th class="text-left py-3 px-4 text-sm font-medium text-gray-600">平均响应时间</th>
-                  <th class="text-left py-3 px-4 text-sm font-medium text-gray-600">最后使用</th>
+                  <th class="text-left py-3 px-4 text-sm font-medium text-gray-600">Tên tài khoản</th>
+                  <th class="text-left py-3 px-4 text-sm font-medium text-gray-600">Số lần yêu cầu</th>
+                  <th class="text-left py-3 px-4 text-sm font-medium text-gray-600">Tỷ lệ thành công</th>
+                  <th class="text-left py-3 px-4 text-sm font-medium text-gray-600">Thời gian phản hồi trung bình</th>
+                  <th class="text-left py-3 px-4 text-sm font-medium text-gray-600">Lần cuối sử dụng</th>
                 </tr>
               </thead>
               <tbody id="accountStatsTable">
                 <tr>
                   <td colspan="5" class="text-center py-8 text-gray-500">
-                    <i class="fas fa-spinner fa-spin mr-2"></i>加载中...
+                    <i class="fas fa-spinner fa-spin mr-2"></i>Đang tải...
                   </td>
                 </tr>
               </tbody>
@@ -412,26 +412,26 @@
           </div>
         </div>
 
-        <!-- API 请求日志 -->
+        <!-- Nhật ký yêu cầu API -->
         <div class="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
           <h3 class="text-lg font-semibold text-gray-900 mb-4">
-            <i class="fas fa-list text-gray-600 mr-2"></i>最近请求日志
+            <i class="fas fa-list text-gray-600 mr-2"></i>Nhật ký yêu cầu gần đây
           </h3>
           <div class="overflow-x-auto max-h-96 overflow-y-auto">
             <table class="w-full">
               <thead class="sticky top-0 bg-gray-50">
                 <tr class="border-b border-gray-200">
-                  <th class="text-left py-3 px-4 text-sm font-medium text-gray-600">时间</th>
+                  <th class="text-left py-3 px-4 text-sm font-medium text-gray-600">Thời gian</th>
                   <th class="text-left py-3 px-4 text-sm font-medium text-gray-600">API Key</th>
-                  <th class="text-left py-3 px-4 text-sm font-medium text-gray-600">模型</th>
-                  <th class="text-left py-3 px-4 text-sm font-medium text-gray-600">状态</th>
-                  <th class="text-left py-3 px-4 text-sm font-medium text-gray-600">响应时间</th>
+                  <th class="text-left py-3 px-4 text-sm font-medium text-gray-600">Mô hình</th>
+                  <th class="text-left py-3 px-4 text-sm font-medium text-gray-600">Trạng thái</th>
+                  <th class="text-left py-3 px-4 text-sm font-medium text-gray-600">Thời gian phản hồi</th>
                 </tr>
               </thead>
               <tbody id="logsTable">
                 <tr>
                   <td colspan="5" class="text-center py-8 text-gray-500">
-                    <i class="fas fa-spinner fa-spin mr-2"></i>加载中...
+                    <i class="fas fa-spinner fa-spin mr-2"></i>Đang tải...
                   </td>
                 </tr>
               </tbody>
@@ -443,16 +443,16 @@
       <!-- Settings Page -->
       <div id="settingsPage" class="p-8 hidden">
         <div class="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
-          <h2 class="text-xl font-semibold text-gray-900 mb-6">系统设置</h2>
+          <h2 class="text-xl font-semibold text-gray-900 mb-6">Cài đặt hệ thống</h2>
           <div class="space-y-6">
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">修改密码</label>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Thay đổi mật khẩu</label>
               <button onclick="showChangePasswordModal()" class="btn-primary px-4 py-2 bg-blue-500 text-white text-sm font-medium rounded-lg hover:bg-blue-600 transition">
-                <i class="fas fa-lock mr-2"></i>修改密码
+                <i class="fas fa-lock mr-2"></i>Thay đổi mật khẩu
               </button>
             </div>
             <div class="pt-6 border-t border-gray-200">
-              <p class="text-sm text-gray-600">更多设置功能开发中...</p>
+              <p class="text-sm text-gray-600">Các chức năng cài đặt khác đang phát triển...</p>
             </div>
           </div>
         </div>
@@ -463,19 +463,19 @@
   <!-- Modals -->
   <div id="createApiKeyModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
     <div class="bg-white rounded-lg max-w-md w-full p-6 shadow-xl">
-      <h3 class="text-xl font-semibold text-gray-900 mb-6">创建 API Key</h3>
+      <h3 class="text-xl font-semibold text-gray-900 mb-6">Tạo API Key</h3>
       <form onsubmit="handleCreateApiKey(event)">
         <div class="mb-6">
-          <label class="block text-sm font-medium text-gray-700 mb-2">名称（可选）</label>
-          <input type="text" id="apiKeyName" placeholder="例如：生产环境" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition" />
+          <label class="block text-sm font-medium text-gray-700 mb-2">Tên (không bắt buộc)</label>
+          <input type="text" id="apiKeyName" placeholder="Ví dụ: môi trường sản xuất" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition" />
         </div>
         
         <div class="flex space-x-3">
           <button type="button" onclick="document.getElementById('createApiKeyModal').classList.add('hidden')" class="flex-1 px-4 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition">
-            取消
+            Hủy bỏ
           </button>
           <button type="submit" class="btn-primary flex-1 px-4 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">
-            创建
+            Tạo
           </button>
         </div>
       </form>
@@ -484,29 +484,29 @@
 
   <div id="createTokenModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
     <div class="bg-white rounded-lg max-w-md w-full p-6 shadow-xl">
-      <h3 class="text-xl font-semibold text-gray-900 mb-6">手动添加 Token</h3>
+      <h3 class="text-xl font-semibold text-gray-900 mb-6">Thêm thủ công Token</h3>
       <form onsubmit="handleCreateToken(event)">
         <div class="mb-4">
-          <label class="block text-sm font-medium text-gray-700 mb-2">名称（可选）</label>
-          <input type="text" id="tokenName" placeholder="例如：主账户" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition" />
+          <label class="block text-sm font-medium text-gray-700 mb-2">Tên (không bắt buộc)</label>
+          <input type="text" id="tokenName" placeholder="Ví dụ: tài khoản chính" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition" />
         </div>
         
         <div class="mb-4">
           <label class="block text-sm font-medium text-gray-700 mb-2">Access Token</label>
-          <textarea id="accessToken" rows="3" placeholder="粘贴 access_token" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition" required></textarea>
+          <textarea id="accessToken" rows="3" placeholder="Dán access_token" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition" required></textarea>
         </div>
         
         <div class="mb-6">
           <label class="block text-sm font-medium text-gray-700 mb-2">Refresh Token</label>
-          <textarea id="refreshToken" rows="3" placeholder="粘贴 refresh_token" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition" required></textarea>
+          <textarea id="refreshToken" rows="3" placeholder="Dán refresh_token" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition" required></textarea>
         </div>
         
         <div class="flex space-x-3">
           <button type="button" onclick="document.getElementById('createTokenModal').classList.add('hidden')" class="flex-1 px-4 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition">
-            取消
+            Hủy bỏ
           </button>
           <button type="submit" class="btn-primary flex-1 px-4 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">
-            添加
+            Thêm
           </button>
         </div>
       </form>
@@ -516,15 +516,15 @@
   <div id="importTokenModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
     <div class="bg-white rounded-lg max-w-2xl w-full shadow-xl flex flex-col max-h-[90vh]">
       <div class="p-6 border-b border-gray-200">
-        <h3 class="text-xl font-semibold text-gray-900">导入 Token (JSON 文件)</h3>
+        <h3 class="text-xl font-semibold text-gray-900">Nhập Token (tệp JSON)</h3>
       </div>
       
       <div class="p-6 overflow-y-auto flex-1">
         <div class="mb-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-          <p class="text-sm text-blue-800 mb-2"><i class="fas fa-info-circle mr-2"></i>支持的 JSON 格式：</p>
+          <p class="text-sm text-blue-800 mb-2"><i class="fas fa-info-circle mr-2"></i>Định dạng JSON hỗ trợ:</p>
           <pre class="text-xs bg-white p-3 rounded border border-blue-200 overflow-x-auto"><code>[
   {
-    "name": "账户名称",
+    "name": "Tên tài khoản",
     "access_token": "sess-xxx",
     "refresh_token": "xxx",
     "email": "user@example.com",
@@ -534,20 +534,20 @@
         </div>
 
         <div class="mb-6">
-          <label class="block text-sm font-medium text-gray-700 mb-2">选择 JSON 文件</label>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Chọn tệp JSON</label>
           <div class="flex items-center space-x-3">
             <input type="file" id="tokenFileInput" accept=".json" multiple class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
           </div>
-          <p class="mt-2 text-xs text-gray-500">支持选择多个文件批量导入，或者直接粘贴 JSON 内容到下方文本框</p>
+          <p class="mt-2 text-xs text-gray-500">Hỗ trợ chọn nhiều tệp để nhập hàng loạt, hoặc dán trực tiếp nội dung JSON vào ô bên dưới</p>
         </div>
 
         <div class="mb-6">
-          <label class="block text-sm font-medium text-gray-700 mb-2">JSON 内容</label>
-          <textarea id="tokenJsonContent" rows="8" placeholder='粘贴 JSON 内容...' class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition font-mono text-sm"></textarea>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Nội dung JSON</label>
+          <textarea id="tokenJsonContent" rows="8" placeholder='Dán nội dung JSON...' class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition font-mono text-sm"></textarea>
         </div>
 
         <div id="importPreview" class="hidden mb-6">
-          <h4 class="text-sm font-medium text-gray-700 mb-2">预览（将导入 <span id="importCount">0</span> 个账户）</h4>
+          <h4 class="text-sm font-medium text-gray-700 mb-2">Xem trước (sẽ nhập <span id="importCount">0</span> tài khoản)</h4>
           <div class="max-h-40 overflow-y-auto border border-gray-200 rounded-lg p-3 bg-gray-50">
             <ul id="importList" class="text-sm text-gray-600 space-y-1"></ul>
           </div>
@@ -557,47 +557,47 @@
       <div class="p-6 border-t border-gray-200 bg-gray-50">
         <div class="flex space-x-3">
           <button type="button" onclick="closeImportModal()" class="flex-1 px-4 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition bg-white">
-            取消
+            Hủy bỏ
           </button>
           <button type="button" onclick="previewImport()" class="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition">
-            <i class="fas fa-eye mr-2"></i>预览
+            <i class="fas fa-eye mr-2"></i>Xem trước
           </button>
           <button type="button" onclick="handleImportTokens()" class="flex-1 px-4 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">
-            <i class="fas fa-file-import mr-2"></i>开始导入
+            <i class="fas fa-file-import mr-2"></i>Bắt đầu nhập
           </button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- 修改密码模态框 -->
+  <!-- Modal thay đổi mật khẩu -->
   <div id="changePasswordModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
     <div class="bg-white rounded-lg max-w-md w-full p-6 shadow-xl">
-      <h3 class="text-xl font-semibold text-gray-900 mb-4">修改密码</h3>
+      <h3 class="text-xl font-semibold text-gray-900 mb-4">Thay đổi mật khẩu</h3>
       
       <form onsubmit="handleChangePassword(event)">
         <div class="mb-4">
-          <label class="block text-sm font-medium text-gray-700 mb-2">当前密码</label>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Mật khẩu hiện tại</label>
           <input type="password" id="currentPassword" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition" />
         </div>
         
         <div class="mb-4">
-          <label class="block text-sm font-medium text-gray-700 mb-2">新密码</label>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Mật khẩu mới</label>
           <input type="password" id="newPassword" required minlength="6" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition" />
-          <p class="mt-1 text-xs text-gray-500">密码长度至少 6 位</p>
+          <p class="mt-1 text-xs text-gray-500">Mật khẩu phải có ít nhất 6 ký tự</p>
         </div>
         
         <div class="mb-6">
-          <label class="block text-sm font-medium text-gray-700 mb-2">确认新密码</label>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Xác nhận mật khẩu mới</label>
           <input type="password" id="confirmPassword" required minlength="6" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition" />
         </div>
         
         <div class="flex space-x-3">
           <button type="button" onclick="closeChangePasswordModal()" class="flex-1 px-4 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition">
-            取消
+            Hủy bỏ
           </button>
           <button type="submit" class="flex-1 px-4 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">
-            确认修改
+            Xác nhận thay đổi
           </button>
         </div>
       </form>
